@@ -1,4 +1,5 @@
 import express = require('express')
+import path = require('path')
 
 export default class Server {
   public app: express.Application;
@@ -13,7 +14,14 @@ export default class Server {
     return new Server(port)
   }
 
+  private publicFolder() {
+    const publicPath = path.resolve(__dirname, '../public')
+
+    this.app.use(express.static(publicPath))
+  }
+
   start (cb: Function) {
-     this.app.listen(this.port, cb)
+    this.app.listen(this.port, cb)
+    this.publicFolder()
   }
 }
