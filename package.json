@@ -1,0 +1,16 @@
+{
+  "name": "ts-mysql",
+  "version": "0.1.0",
+  "description": "Basic project for interact to with Typescript and Mysql.",
+  "repository": "git@github.com:tonykevin/ts-mysql.git",
+  "author": "tonykevin <h@tonykevin.com>",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon dist"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.18.11",
+    "typescript": "^3.4.5"
+  }
+}
