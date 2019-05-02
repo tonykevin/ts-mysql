@@ -10,10 +10,10 @@ router.get('/heroes', (req: Request, res: Response) => {
 
   MySQL.executeQuery(query, (err:any, heroes: Object[]) => {
     if (err) {
-      return res.status(500).json({
+      return res.status(400).json({
         ok: false,
         error: {
-          message: 'Tenemos algunos problemas.'
+          message: err
         }
       })
     }
@@ -22,16 +22,31 @@ router.get('/heroes', (req: Request, res: Response) => {
       ok: true,
       heroes
     })
-
   })
 })
 
 router.get('/heroes/:id', (req: Request, res: Response) => {
   const { id } = req.params
-  res.json({
-    ok: true,
-    message: 'All is ok',
-    id
+  const escapeId = MySQL.instance.cnn.escape(id)
+
+  const query = `
+    SELECT * FROM heroes WHERE idHeroes = ${escapeId};
+  `
+
+  MySQL.executeQuery(query, (err:any, heroe: Object[]) => {
+    if (err) {
+      return res.status(400).json({
+        ok: false,
+        error: {
+          message: err
+        }
+      })
+    }
+
+    res.json({
+      ok: true,
+      heroe: heroe[0]
+    })
   })
 })
 

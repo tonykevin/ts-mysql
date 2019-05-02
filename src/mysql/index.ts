@@ -32,7 +32,7 @@ export default class MySQL {
     this.instance.cnn.query(query, (err, results: Object[], fields) => {
       if (err) {
         console.log(err)
-        return cb(err)
+        return cb('Tenemos algunos problemas.')
       }
 
       if (!results.length) {
