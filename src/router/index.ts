@@ -1,11 +1,28 @@
 import { Router, Request, Response } from 'express'
+import MySQL from '../mysql'
 
 const router = Router()
 
 router.get('/heroes', (req: Request, res: Response) => {
-  res.json({
-    ok: true,
-    message: 'All is ok'
+  const query = `
+    SELECT * FROM heroes;
+  `
+
+  MySQL.executeQuery(query, (err:any, heroes: Object[]) => {
+    if (err) {
+      return res.status(500).json({
+        ok: false,
+        error: {
+          message: 'Tenemos algunos problemas.'
+        }
+      })
+    }
+
+    res.json({
+      ok: true,
+      heroes
+    })
+
   })
 })
 

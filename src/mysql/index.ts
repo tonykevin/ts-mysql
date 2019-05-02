@@ -28,6 +28,21 @@ export default class MySQL {
     return this._instance || (this._instance = new this())
   }
 
+  static executeQuery (query: string, cb: Function) {
+    this.instance.cnn.query(query, (err, results: Object[], fields) => {
+      if (err) {
+        console.log(err)
+        return cb(err)
+      }
+
+      if (!results.length) {
+        return cb('El registro solicitado no existe')
+      }
+
+      cb(null, results)
+    })
+  }
+
   private connectDB () {
     this.cnn.connect((err: mysql.MysqlError) => {
       if (err) {
