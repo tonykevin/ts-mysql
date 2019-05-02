@@ -5,7 +5,7 @@ import MySQl from './mysql'
 const server = Server.init(3000)
 server.app.use(router)
 
-const mysql = new MySQl()
+MySQl.instance
 
 server.start(() => {
   console.log('server running in port 3000')
