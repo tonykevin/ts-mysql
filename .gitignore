@@ -1,2 +1,5 @@
+.env
+config
+data
 dist
 node_modules
